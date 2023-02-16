@@ -1,25 +1,32 @@
 import express from 'express';
 import addRoutes from "./setup/addRoutes";
 import addMiddlewares from "./setup/addMiddlewares";
-import { connect, disconnect } from './services/connectionService';
+import { ConnectionService } from './services/connectionService';
 
-try {
-    await connect();
+export async function handler() {
 
-    const app = express();
+    const connectionService = new ConnectionService();
 
-    addMiddlewares(app); // DEVE SER ADICIONANDO ANTES DOS CONTROLLERS
-    addRoutes(app);
+    try {
 
-    app.listen(3000, () => {
-        console.log("A API ESTÁ RODANDO NA PORTA 3000");
-    });
+        await connectionService.connect();
 
-} catch (error) {
-    await disconnect();
-    throw error;
+        const app = express();
+
+        addMiddlewares(app); // DEVE SER ADICIONANDO ANTES DOS CONTROLLERS
+        addRoutes(app);
+
+        app.listen(3000, () => {
+            console.log("A API ESTÁ RODANDO NA PORTA 3000");
+        });
+
+    } catch (error) {
+        await connectionService.disconnect();
+        throw error;
+    }
 }
 
+handler();
 
 
 

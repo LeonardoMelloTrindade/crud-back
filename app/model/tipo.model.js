@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-var TipoSchema = new Schema({
+const TipoSchema = new Schema({
     nome: { type: String, required: true },
 });
 

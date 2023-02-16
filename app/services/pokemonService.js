@@ -3,7 +3,6 @@ import TipoModel from "../model/tipo.model";
 
 export class PokemonService {
     async listarTipos() {
-
         const tipos = await TipoModel.find().lean().exec();
         const tiposResult = tipos.map(function (tipo) {
             return tipo.nome;

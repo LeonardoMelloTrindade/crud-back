@@ -12,18 +12,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.23.0",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "eslint": "^8.34.0",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
-    "mongoose": "^6.8.1"
+    "mongoose": "^6.9.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "nodemon": "^2.0.20",
+    "npx": "^3.0.0",
     "rimraf": "^3.0.2"
   }
 }
