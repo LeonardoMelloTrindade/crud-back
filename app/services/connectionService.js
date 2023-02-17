@@ -13,11 +13,11 @@ export class ConnectionService {
                 useUnifiedTopology: true
             });
         }
-    };
+    }
 
     async disconnect() {
         console.log('Desconectando do MongoDB');
         await mongoose.disconnect();
-    };
+    }
 }
 
