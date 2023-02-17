@@ -18,6 +18,7 @@ export async function handler() {
 
         app.listen(3000, () => {
             console.log("A API ESTÁ RODANDO NA PORTA 3000");
+            console.log("A API ESTÁ RODANDO NA PORTA 3000 2");
         });
 
     } catch (error) {
