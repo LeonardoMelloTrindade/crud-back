@@ -21,12 +21,12 @@ export class PokemonService {
     }
 
     async deletar(id) {
-        PokemonModel.findByIdAndDelete(id);
+        await PokemonModel.findByIdAndDelete(id);
         return "Pokemon deletado com sucesso";
     }
 
     async editar(id, pokemon) {
-        PokemonModel.findByIdAndUpdate(id, pokemon);
+        await PokemonModel.findByIdAndUpdate(id, pokemon);
         return "Pokemon atualizado com sucesso";
     }
 
