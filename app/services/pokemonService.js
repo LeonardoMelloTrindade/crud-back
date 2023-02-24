@@ -1,13 +1,23 @@
 import PokemonModel from "../model/pokemon.model";
 import TipoModel from "../model/tipo.model";
+import PaginationService from "./paginationService";
+import PaginationDTO from "../model/dto/paginateDTO"
 
 export class PokemonService {
-    async listarTipos() {
-        const tipos = await TipoModel.find().lean().exec();
+
+    constructor() {
+        this.paginationService = new PaginationService();
+    }
+
+    async listarTipos(page, limit) {
+        const tipos = await this.paginationService.paginate(TipoModel.find(), page, limit);
+        const total = await TipoModel.count().exec();
         const tiposResult = tipos.map(function (tipo) {
             return tipo.nome;
         })
-        return tiposResult;
+
+
+        return new PaginationDTO(tiposResult, page, limit, total);
     }
 
     async listar() {
@@ -21,13 +31,11 @@ export class PokemonService {
     }
 
     async deletar(id) {
-        await PokemonModel.findByIdAndDelete(id);
-        return "Pokemon deletado com sucesso";
+        return PokemonModel.findByIdAndDelete(id);
     }
 
     async editar(id, pokemon) {
-        await PokemonModel.findByIdAndUpdate(id, pokemon);
-        return "Pokemon atualizado com sucesso";
+        return PokemonModel.findByIdAndUpdate(id, pokemon);
     }
 
     async buscar(id) {

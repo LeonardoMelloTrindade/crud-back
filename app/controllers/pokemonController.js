@@ -1,23 +1,28 @@
 import { PokemonService } from "../services/pokemonService";
 
-export class PokemonController {
-    pokemonService = {}
+export default class PokemonController {
+
     constructor() {
         this.pokemonService = new PokemonService();
+        this.listarTipos = this.listarTipos.bind(this);
+        this.listar = this.listar.bind(this);
+        this.buscar = this.buscar.bind(this);
+        this.salvar = this.salvar.bind(this);
+        this.deletar = this.deletar.bind(this);
+        this.editar = this.editar.bind(this);
     }
 
     async listarTipos(req, res) {
         try {
 
-            const tipos = await this.pokemonService.listarTipos();
+            const { page, limit } = req.query;
+
+            const tipos = await this.pokemonService.listarTipos(page, limit);
             res.json(tipos);
 
         } catch (error) {
-
             console.error(error);
             throw new Error('Ocorreu um erro na listagem de tipos');
-        } finally {
-            console.log('chego no finally get tipos')
         }
     }
 
@@ -32,8 +37,6 @@ export class PokemonController {
 
             console.error(error);
             throw new Error('Ocorreu um erro na listagem de pokemon');
-        } finally {
-            console.log('chego no finally get pokemons')
         }
     }
 
@@ -48,8 +51,6 @@ export class PokemonController {
 
             console.error(error);
             throw new Error('Ocorreu um erro na listagem de pokemon');
-        } finally {
-            console.log('chego no finally get pokemons')
         }
     }
 
@@ -63,8 +64,6 @@ export class PokemonController {
         } catch (error) {
             console.error(error);
             throw new Error('Ocorreu um erro na criacao do pokemon');
-        } finally {
-            console.log('chego no finally post')
         }
     }
 
@@ -78,8 +77,6 @@ export class PokemonController {
         } catch (error) {
             console.error(error);
             throw new Error('Ocorreu um erro ao deletar o pokemon');
-        } finally {
-            console.log('chego no finally delete')
         }
     }
 
@@ -94,8 +91,6 @@ export class PokemonController {
         } catch (error) {
             console.error(error);
             throw new Error('Ocorreu um erro ao deletar o pokemon');
-        } finally {
-            console.log('chego no finally delete')
         }
     }
 }
