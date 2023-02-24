@@ -9,25 +9,20 @@ export class PokemonService {
         this.paginationService = new PaginationService();
     }
 
-    async listarTipos(page, limit) {
-        const tipos = await this.paginationService.paginate(TipoModel.find(), page, limit);
-        const total = await TipoModel.count().exec();
-        const tiposResult = tipos.map(function (tipo) {
-            return tipo.nome;
-        })
-
-
-        return new PaginationDTO(tiposResult, page, limit, total);
+    async listarTipos() {
+        const tipos = await TipoModel.find().exec();
+        return tipos.map(tipo => tipo.nome);
     }
 
-    async listar() {
-        return PokemonModel.find().lean().exec();
+    async listar(page, limit) {
+        const pokemons = await this.paginationService.paginate(PokemonModel.find(), page, limit);
+        const total = await PokemonModel.count().exec();
+        return new PaginationDTO(pokemons, page, limit, total);
     }
 
     async salvar(pokemon) {
         const createdPokemon = new PokemonModel(pokemon);
-        await createdPokemon.save();
-        return "Salvou com sucesso";
+        return createdPokemon.save();
     }
 
     async deletar(id) {
