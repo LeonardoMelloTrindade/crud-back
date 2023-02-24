@@ -1,33 +1,37 @@
 import express from 'express';
-import addRoutes from "./setup/addRoutes";
-import addMiddlewares from "./setup/addMiddlewares";
-import { ConnectionService } from './services/connectionService';
+import RouterService from "./setup/routerService";
+import MiddlewareService from "./setup/middlewareService";
+import ConnectionService from './services/connectionService';
 
-export async function handler() {
+export default class Startup {
+    constructor() {
+        this.app = express();
+        this.connectionService = new ConnectionService();
+        this.routerService = new RouterService(this.app);
+        this.middlewareService = new MiddlewareService(this.app);
+    }
 
-    const connectionService = new ConnectionService();
+    async start() {
+        try {
 
-    try {
+            await this.connectionService.connect();
 
-        await connectionService.connect();
+            this.middlewareService.setup();
+            this.routerService.setup();
 
-        const app = express();
+            this.app.listen(3000, () => {
+                console.log("A API ESTÁ RODANDO NA PORTA 3000");
+            });
 
-        addMiddlewares(app); // DEVE SER ADICIONANDO ANTES DOS CONTROLLERS
-        addRoutes(app);
-
-        app.listen(3000, () => {
-            console.log("A API ESTÁ RODANDO NA PORTA 3000");
-            console.log("A API ESTÁ RODANDO NA PORTA 3000 2");
-        });
-
-    } catch (error) {
-        await connectionService.disconnect();
-        throw error;
+        } catch (error) {
+            await this.connectionService.disconnect();
+            throw error;
+        }
     }
 }
 
-handler();
+const startup = new Startup();
+startup.start();
 
 
 

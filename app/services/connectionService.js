@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export class ConnectionService {
+export default class ConnectionService {
 
     constructor() {
         mongoose.set("strictQuery", false);

@@ -2,6 +2,7 @@
   "name": "minha-api",
   "version": "1.0.0",
   "description": "descricao teste",
+  "type": "commonjs",
   "scripts": {
     "build": "rimraf ./dist && npx babel ./app --out-dir ./dist",
     "start": "nodemon dist/index.js",
