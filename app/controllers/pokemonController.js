@@ -12,12 +12,9 @@ export default class PokemonController {
         this.editar = this.editar.bind(this);
     }
 
-    async listarTipos(req, res) {
+    async listarTipos(_, res) {
         try {
-
-            const { page, limit } = req.query;
-
-            const tipos = await this.pokemonService.listarTipos(page, limit);
+            const tipos = await this.pokemonService.listarTipos();
             res.json(tipos);
 
         } catch (error) {
@@ -26,10 +23,12 @@ export default class PokemonController {
         }
     }
 
-    async listar(_, res) {
+    async listar(req, res) {
 
         try {
-            const pokemon = await this.pokemonService.listar();
+            const { page, limit } = req.query;
+
+            const pokemon = await this.pokemonService.listar(page, limit);
 
             res.json(pokemon);
 
