@@ -1,24 +1,22 @@
-import PokemonController from "../controllers/pokemonController";
+import MyController from "../controllers/myController";
 
 export default class RouterService {
 
     constructor(app) {
         this.app = app;
-        this.pokemonController = new PokemonController();
+        this.myController = new MyController();
     }
 
     setup() {
-        this.app.get("/pokemon/tipos", this.pokemonController.listarTipos);
 
-        this.app.get("/pokemon", this.pokemonController.listar);
+        this.app.get("/produtos", this.myController.listar);
 
-        this.app.get("/pokemon/:id", this.pokemonController.buscar);
+        this.app.post("/carrinho", this.myController.salvar);
 
-        this.app.post("/pokemon", this.pokemonController.salvar);
+        this.app.delete("/carrinho/:id", this.myController.deletar);
 
-        this.app.delete("/pokemon/:id", this.pokemonController.deletar);
+        this.app.put("/pokemon/:id", this.myController.editar);
 
-        this.app.put("/pokemon/:id", this.pokemonController.editar);
     }
 }
 
