@@ -29,13 +29,16 @@ export default class MyController {
     async salvar(req, res) {
 
         try {
+            const { itensPedido, endereco } = req.body;
+            console.log(itensPedido)
+            console.log(endereco)
 
-            const pokemonSalvo = await this.myService.salvar(req.body);
+            const pokemonSalvo = await this.myService.salvar(itensPedido, endereco);
             res.json(pokemonSalvo);
 
         } catch (error) {
             console.error(error);
-            throw new Error('Ocorreu um erro na criacao do pokemon');
+            throw new Error('Ocorreu um erro na criacao do pedido');
         }
     }
 

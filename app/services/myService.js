@@ -1,4 +1,5 @@
 import ProdutoModel from "../model/produto.model";
+import PedidoModel from "../model/pedido.model";
 import FilterService from "./filterService";
 import FilterDTO from "../model/dto/filterDTO"
 
@@ -18,13 +19,14 @@ export class MyService {
         } else {
             filter = {}; // condição de consulta para nenhum filtro
         }
+        
         const datas = await this.filterService.filter(ProdutoModel.find(filter), filterOption);
         const total = await ProdutoModel.count().exec();
         return new FilterDTO(datas, filterOption, total);
     }
 
-    async salvar(itensCarrinho) {
-        const createdPokemon = new ProdutoModel(itensCarrinho);
+    async salvar(itensPedido, endereco) {
+        const createdPokemon = new PedidoModel(itensPedido, endereco);
         return createdPokemon.save();
     }
 
