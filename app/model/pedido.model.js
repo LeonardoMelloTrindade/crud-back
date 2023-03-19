@@ -9,8 +9,9 @@ const ItemPedidoSchema = new Schema({
 });
 
 const PedidoSchema = new Schema({
+    _id: { type: mongoose.Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
     itensPedido: { type: [ItemPedidoSchema] },
     endereco: { type: Object }
-});
+}, { timestamps: true });
 
 export default mongoose.model('Pedido', PedidoSchema);
