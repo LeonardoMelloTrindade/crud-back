@@ -8,7 +8,7 @@ export default class ConnectionService {
 
     async connect() {
         if (mongoose.connection.readyState === 0) {
-            return mongoose.connect('mongodb://127.0.0.1:27017/api-produtos', {
+            return mongoose.connect('mongodb://127.0.0.1:27017/crud-pokemon', {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });

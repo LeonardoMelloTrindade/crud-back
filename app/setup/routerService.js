@@ -9,11 +9,11 @@ export default class RouterService {
 
     setup() {
 
-        this.app.get("/produtos", this.myController.listar);
+        this.app.get("/pokemon", this.myController.listar);
 
-        this.app.post("/carrinho", this.myController.salvar);
+        this.app.post("/pokemon", this.myController.salvar);
 
-        this.app.delete("/carrinho/:id", this.myController.deletar);
+        this.app.delete("/pokemon/:id", this.myController.deletar);
 
         this.app.put("/pokemon/:id", this.myController.editar);
 
