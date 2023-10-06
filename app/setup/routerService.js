@@ -11,6 +11,8 @@ export default class RouterService {
 
         this.app.get("/pokemon", this.myController.listar);
 
+        this.app.get("/pokemon/:id", this.myController.buscar);
+
         this.app.post("/pokemon", this.myController.salvar);
 
         this.app.delete("/pokemon/:id", this.myController.deletar);
